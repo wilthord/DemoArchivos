@@ -29,23 +29,41 @@
 	<br/>
 	<b>Usuario:</b>&nbsp;<%=request.getParameter("txtUsuario") %>
 		<br/><br/><br/>
+	
+	<%
+			ConexionMySql util = new ConexionMySql();
+			Connection con = util.getConexion();
+			ArrayList<String> log = util.getLog(con);
+	%>
+	
+	<table border="1">
+		<tr>
+			<td colspan="3" align="center">Historial</td>
+		</tr>
+		<tr>
+			<td bgcolor="#3F3F3F" align="center"><b>Usuario</b></td>
+			<td bgcolor="#3F3F3F" align="center"><b>Archivo</b></td>
+			<td bgcolor="#3F3F3F" align="center"><b>fecha</b></td>
+		</tr>
 		<%
-			String mensaje = (String)request.getAttribute("message");
-			if(mensaje!=null && mensaje.trim()!=""){
+			if (log != null && log.size() > 0) {
+				for (int i = 0; i < log.size()-2; i+=3) {
 		%>
-				<%=mensaje%><br/><br/><br/>
+		<tr>
+			<td><%=log.get(i)%></td>
+			<td><%=log.get(i+1)%></td>
+			<td><%=log.get(i+2)%></td>
+		</tr>
+		<%
+			}
+			} else {
+		%>
+		<tr>
+			<td colspan="3">No hay registros en el historial</td>
+		</tr>
 		<%
 			}
 		%>
-		
-	<form action="servSubirArchivos" method="post" enctype="multipart/form-data">
-		
-		<input type="file" name="file" /> 
-		<br /> <br/>
-		<input type="submit" value="Subir archivo" />
-		<input type="hidden" name="txtUsuario" value='<%=request.getParameter("txtUsuario") %>'/>
-	</form>
-	<br/><br/>
-	
+	</table>
 </body>
 </html>

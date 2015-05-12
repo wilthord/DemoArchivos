@@ -29,23 +29,39 @@
 	<br/>
 	<b>Usuario:</b>&nbsp;<%=request.getParameter("txtUsuario") %>
 		<br/><br/><br/>
+		
+	
+	<%
+			ConexionMySql util = new ConexionMySql();
+			ArrayList<String> listaArch = util.getListaArchivos(request);
+	%>
+
+	<table border="1">
+		<tr>
+			<td colspan="2" align="center">Lista de Archivos</td>
+		</tr>
+		<tr>
+			<td bgcolor="#3F3F3F" align="center"><b>Nombre del Archivo</b></td>
+			<td bgcolor="#3F3F3F" align="center"><b>Opciones</b></td>
+		</tr>
 		<%
-			String mensaje = (String)request.getAttribute("message");
-			if(mensaje!=null && mensaje.trim()!=""){
+			if (listaArch != null && listaArch.size() > 0) {
+				for (int i = 0; i < listaArch.size(); i++) {
 		%>
-				<%=mensaje%><br/><br/><br/>
+		<tr>
+			<td><%=listaArch.get(i)%></td>
+			<td><a href="uploadFiles/<%=listaArch.get(i)%>">Descargar</a></td>
+		</tr>
+		<%
+			}
+			} else {
+		%>
+		<tr>
+			<td colspan="2">No se encontraron archivos</td>
+		</tr>
 		<%
 			}
 		%>
-		
-	<form action="servSubirArchivos" method="post" enctype="multipart/form-data">
-		
-		<input type="file" name="file" /> 
-		<br /> <br/>
-		<input type="submit" value="Subir archivo" />
-		<input type="hidden" name="txtUsuario" value='<%=request.getParameter("txtUsuario") %>'/>
-	</form>
-	<br/><br/>
-	
+	</table>
 </body>
 </html>
