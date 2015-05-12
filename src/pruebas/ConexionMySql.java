@@ -1,7 +1,10 @@
 package pruebas;
 
+import java.io.File;
 import java.sql.*;
 import java.util.ArrayList;
+
+import javax.servlet.http.HttpServletRequest;
 
 public class ConexionMySql {
 	
@@ -10,7 +13,7 @@ public class ConexionMySql {
 		String dbName = "test";
 		String driver = "com.mysql.jdbc.Driver";
 		String userName = "root";
-		String password = "admin";
+		String password = "root";
 		try {
 			Class.forName(driver).newInstance();
 			Connection conn = DriverManager.getConnection(url + dbName,
@@ -50,9 +53,9 @@ public class ConexionMySql {
 				ResultSet rs = ps.executeQuery();
 				
 				while(rs.next()){
-					lista.add(rs.getString(0));
-					lista.add(rs.getString(1));
-					lista.add(rs.getString(2));
+					lista.add(rs.getString("usuario"));
+					lista.add(rs.getString("nombreArchivo"));
+					lista.add(rs.getString("fecha"));
 				}
 				rs.close();
 				ps.close();
@@ -60,6 +63,27 @@ public class ConexionMySql {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		return lista;
+	}
+	
+	
+	public ArrayList<String> getListaArchivos(HttpServletRequest request){
+		ArrayList<String> lista = new ArrayList<String>(); 
+		File[] listaArchivos=null;
+		
+		String appPath = request.getServletContext().getRealPath("");
+		// constructs path of the directory to save uploaded file
+		String savePath = appPath + File.separator + "uploadFiles";
+
+		// creates the save directory if it does not exists
+		File fileSaveDir = new File(savePath);
+		if (fileSaveDir.exists()) {
+			listaArchivos = fileSaveDir.listFiles();
+			for(File archivo : listaArchivos){
+				lista.add(archivo.getName());
+			}
+		}
+		
 		return lista;
 	}
 }

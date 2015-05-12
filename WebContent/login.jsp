@@ -9,7 +9,7 @@
 <body>
 	<form action="cargarArchivo.jsp">	
 		Usuario: <input type="text" name="txtUsuario"></br>
-		Password: <input type="password" name="txtUsuario">
+		Password: <input type="password" name="txtPassword">
 		</br></br>
 		<input type="submit" name="btnLogin" value="Ingresar">
 	</form>

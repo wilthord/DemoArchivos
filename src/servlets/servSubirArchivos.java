@@ -24,6 +24,10 @@ import pruebas.ConexionMySql;
 		public class servSubirArchivos extends HttpServlet {
 	 
 	    /**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+		/**
 	     * Name of the directory where uploaded files will be saved, relative to
 	     * the web application directory.
 	     */
@@ -37,7 +41,7 @@ import pruebas.ConexionMySql;
 	        // gets absolute path of the web application
 	        String appPath = request.getServletContext().getRealPath("");
 	        // constructs path of the directory to save uploaded file
-	        String savePath = appPath  + SAVE_DIR;
+	        String savePath = appPath + File.separator + SAVE_DIR;
 	        System.out.println(savePath);
 	         
 	        // creates the save directory if it does not exists
@@ -71,8 +75,8 @@ import pruebas.ConexionMySql;
 	        	e.printStackTrace();
 	        }
 
-	        request.setAttribute("message", "Upload has been done successfully!");
-	        getServletContext().getRequestDispatcher("/login.jsp").forward(
+	        request.setAttribute("message", "Se Cargó el archivo exitosamente");
+	        getServletContext().getRequestDispatcher("/cargarArchivo.jsp").forward(
 	                request, response);
 	    }
 	 
