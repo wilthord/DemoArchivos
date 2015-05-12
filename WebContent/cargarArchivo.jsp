@@ -8,9 +8,26 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Cargar Archivos</title>
+<link rel="stylesheet" type="text/css" href="pro_dropdown_3/pro_dropdown_3.css" />
+<script src="pro_dropdown_3/stuHover.js" type="text/javascript"></script>
 </head>
 <body>
-		Usuario:<%=request.getParameter("txtUsuario") %>
+	<span class="preload1"></span>
+	<span class="preload2"></span>
+
+	<ul id="nav">
+		<li class="top"><a href="" id="archivos" class="top_link"><span
+				class="down">Archivos&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
+			<ul class="sub">
+				<li><a href="cargarArchivo.jsp">Cargar</a></li>
+				<li><a href="verLog.jsp">Historial</a></li>
+				<li><a href="verArchivos.jsp">Archivos</a></li>
+			</ul></li>
+		<li class="top"><a href="login.jsp" id="services"
+			class="top_link"><span>Salir</span></a></li>
+	</ul>
+	<br/><br/><br/>
+	<b>Usuario:</b>&nbsp;<%=request.getParameter("txtUsuario") %>
 		<br/><br/><br/>
 		<%
 			String mensaje = (String)request.getAttribute("message");
@@ -24,7 +41,7 @@
 	<form action="servSubirArchivos" method="post" enctype="multipart/form-data">
 		
 		<input type="file" name="file" /> 
-		<br /> 
+		<br /> <br/>
 		<input type="submit" value="Subir archivo" />
 		<input type="hidden" name="txtUsuario" value='<%=request.getParameter("txtUsuario") %>'/>
 	</form>
